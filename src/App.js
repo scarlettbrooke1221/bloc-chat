@@ -14,8 +14,39 @@ import * as firebase from 'firebase';
   };
   firebase.initializeApp(config);
 
+ 
+
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      addItem: '',
+      rooms: []
+     };
+     
+     this.handleChange = this.handleChange.bind(this);
+     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(e) {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    const itemsRef = firebase.database().ref('items');
+    const item = {
+      value: this.state.addItem,
+    }
+    itemsRef.push(item);
+    this.setState({
+      addItem: ''
+     });
+  }
+
   render() {
     return (
       <div className="App">
@@ -23,6 +54,7 @@ class App extends Component {
         <h1 className="App-title">Bloc Chat App</h1>
         </header>
         <RoomList firebase = {firebase}/>
+        
       </div>
     );
   }

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-export class RoomList extends Component {
+class RoomList extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -15,12 +15,20 @@ export class RoomList extends Component {
       this.setState({ rooms: this.state.rooms.concat( room ) })
     });
   }
+
+
+
   render() {
     const roomList = this.state.rooms.map((room) =>
       <li key = {room.key}>{room.name}</li>
      );
      return(
-       <ul>{roomList}</ul>
+       <ul>{roomList}
+       <form onSubmit={this.handleSubmit}>
+           <input type="text" name="addItem" value={this.state.addItem} onChange={this.handleChange} />
+           <input type="submit" onClick={(e) => this.handleSubmit(e)} />
+        </form>
+        </ul>
      );
     }
   };
