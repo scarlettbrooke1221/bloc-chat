@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import  RoomList from './components/RoomList.js'
+import RoomList from './components/RoomList.js';
+import MessageList from './components/MessageList.js';
 import './App.css';
 import * as firebase from 'firebase';
 
@@ -18,16 +19,22 @@ import * as firebase from 'firebase';
 
 
 class App extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       addItem: '',
-      rooms: []
+      activeRoom: []
      };
-     
+     this.setActiveRoom = this.setActiveRoom.bind(this);
      this.handleChange = this.handleChange.bind(this);
      this.handleSubmit = this.handleSubmit.bind(this);
   }
+
+  setActiveRoom(room){
+this.setState({activeRoom: room},() => console.log("Active room:", this.state.activeRoom));
+console.log ("New room activated", room);
+  }
+
 
   handleChange(e) {
     this.setState({
@@ -53,8 +60,8 @@ class App extends Component {
         <header className="App-header">
         <h1 className="App-title">Bloc Chat App</h1>
         </header>
-        <RoomList firebase = {firebase}/>
-        
+        <RoomList firebase = {firebase} setActiveRoom={ (room) => this.setActiveRoom(room)} />
+        <MessageList firebase={firebase} activeRoom={this.state.activeRoom} />
       </div>
     );
   }
