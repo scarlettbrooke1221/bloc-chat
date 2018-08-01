@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import RoomList from './RoomList';
-import MessageList from './MessageList';
-import * as firebase from 'firebase';
+
 
 class ActiveRoom extends Component {
   constructor(props) {

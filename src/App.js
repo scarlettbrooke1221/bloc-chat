@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import RoomList from './components/RoomList.js';
 import MessageList from './components/MessageList.js';
+import User from '.components/User.js';
 import './App.css';
 import * as firebase from 'firebase';
 
@@ -22,7 +23,6 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      addItem: '',
       activeRoom: []
      };
      this.setActiveRoom = this.setActiveRoom.bind(this);
