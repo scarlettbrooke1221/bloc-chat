@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import RoomList from './components/RoomList.js';
 import MessageList from './components/MessageList.js';
+import User from './components/User.js';
 import './App.css';
 import * as firebase from 'firebase';
 
@@ -23,11 +24,13 @@ class App extends Component {
     super(props);
     this.state = {
       addItem: '',
-      activeRoom: []
+      activeRoom: [],
+      activeUser:"Guest"
      };
      this.setActiveRoom = this.setActiveRoom.bind(this);
      this.handleChange = this.handleChange.bind(this);
      this.handleSubmit = this.handleSubmit.bind(this);
+     this.setUser = this.setUser.bind(this);
   }
 
   setActiveRoom(room){
@@ -54,6 +57,11 @@ console.log ("New room activated", room);
      });
   }
 
+  setUser(user) {
+    this.setState({activeUser: user});
+  }
+
+
   render() {
     return (
       <div className="App">
@@ -62,6 +70,7 @@ console.log ("New room activated", room);
         </header>
         <RoomList firebase = {firebase} setActiveRoom={ (room) => this.setActiveRoom(room)} />
         <MessageList firebase={firebase} activeRoom={this.state.activeRoom} />
+        <User firebase={firebase} setUser= {this.setUser} activeUser={this.state.activeUser} />
       </div>
     );
   }
