@@ -42,7 +42,7 @@ class RoomList extends Component {
       <section className="roomList">
         {
           this.state.rooms.map((room, index) =>
-        <div onCLick= { () =>
+        <div onClick= { () =>
           this.roomChange(room)} key={index}>{room.name}
           </div>
           )

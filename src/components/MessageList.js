@@ -24,14 +24,7 @@ export class MessageList extends Component {
         });
         console.log(this.props.activeRoom);
       }
-        componentDidMount() {
-                this.messageRef.on('child_added', snapshot => {
-                  const message = snapshot.val();
-                  this.setState({ messages: this.state.messages.concat( message )});
-                    console.log("message loaded");
-                });
-                console.log(this.props.activeRoom);
-              }
+      
             
               messageContent (e) {
                 e.preventDefault();
@@ -39,7 +32,7 @@ export class MessageList extends Component {
                   {
                   content: e.target.value,
                   username: "username",
-                  sentAt: this.props.firebase.database.value.timeStamp,
+                  sentAt: this.props.firebase.database.ServerValue.TIMESTAMP,
                   roomId: this.props.activeRoom.key
                 })
               }
