@@ -14,6 +14,7 @@ export class MessageList extends Component {
     this.messageRef = this.props.firebase.database().ref('messages');
     this.createMessage = this.createMessage.bind(this);
     this.messageContent = this.messageContent.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   };
 
   componentDidMount() {
@@ -55,8 +56,14 @@ export class MessageList extends Component {
                 });
               }
 
+              handleChange = (e) => {
+                this.setState({ message: e.target.value });
+              }
+
+              
+
               render() {
-                const messageList = (this.state.messages.map((message) => {
+                const messageList = (this.state.messages.map((message) => {cd
                   if (message.roomId === this.props.activeRoom.key) {
                     console.log("messageList fired")
                     return <div key={message.roomId}>{message.content}</div>
@@ -69,8 +76,9 @@ export class MessageList extends Component {
                 return (
                   <section className="activeMessageList">
                     <div>Current Room: {this.props.activeRoom.name}</div>
-                    <div>Messages:</div>
-                    <div>{messageList}</div>
+                   <div>
+                   <p>Message List:{messageList.content}</p>
+                   </div>
                   </section>
                 );
               }
