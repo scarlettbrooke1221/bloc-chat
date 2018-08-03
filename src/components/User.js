@@ -1,38 +1,57 @@
 import React, { Component } from 'react';
 
-class User extends Component {
 
+class User extends Component {
+  constructor(props) {
+		super(props); 
+		
+		this.state = {
+      signedIn: false
+    };
+    this.signIn = this.signIn.bind(this);
+    this.signOut = this.signOut.bind(this);
+    this.notSignedIn = this.notSignedIn.bind(this);
+  }
+      
   componentDidMount() {
     this.props.firebase.auth().onAuthStateChanged( user => {
       this.props.setUser(user)
     });
   }
 
-  signIn(e) {
-  const provider = new this.props.firebase.auth.GoogleAuthProvider();
-  this.props.firebase.auth().signInWithPopup( provider);
-  console.log("signed in");
-  };
+  signIn() {
+    const provider = new this.props.firebase.auth.GoogleAuthProvider();
+    this.props.firebase.auth().signInWithPopup(provider).then((result) => {
+      const user = result.user;
+      this.props.setUser(user);
+      console.log("signed in");
+    });
+    this.setState({ signedIn: true });
+  }
 
-  signOut(e) {
-    this.props.firebase.auth().signOut();
-    this.props.setUser("Guest");
+   signOut() {
+  this.props.firebase.auth().signOut().then(() => {
+    this.props.setUser(null);
     console.log("signed out")
-  }
+  });
+  this.setState({ signedIn: false });
+}
 
-  render() {
+notSignedIn(isSignedIn) {
+  if (!this.props.user)
+  return <p> Please sign in </p>
+}
 
-    const displayName = this.props.activeUser === (undefined || null) ? "Guest" : this.props.activeUser.displayName;
-
-    return (
-        <div>
-        <p className = "userName">Hello, {displayName}</p>
-        <button type="text" onClick={() => this.signIn()}>Sign In</button>
-        <button type="text" onClick={() => this.signOut()}>Sign Out</button>
-        
-        </div>
-      
-    );
-  }
-};
+render() {
+  return (
+   <div>
+   
+     {this.notSignedIn(this.signedIn)}
+     <button onClick={this.signIn}>Sign In</button>
+     <button onClick={this.signOut}>Sign Out</button>
+       <p>Hi, {this.props.currentUser}. {this.props.currentUser === 'Guest' ? "Please sign in" : "You're signed in."}</p>
+    </div>
+ )
+}
+}
 export default User;

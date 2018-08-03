@@ -32,7 +32,7 @@ export class MessageList extends Component {
                 this.setState(
                   {
                   content: e.target.value,
-                  username: "username",
+                  username: this.props.username,
                   sentAt: this.props.firebase.database.ServerValue.TIMESTAMP,
                   roomId: this.props.activeRoom.key
                 })
@@ -42,11 +42,11 @@ export class MessageList extends Component {
                 e.preventDefault();
                 this.messageRef.push(
                   {
-                    content: this.state.content,
-                    username: this.state.username,
+                    content: this.state.value,
+                    username: this.props.user ? this.props.user.displayName : 'Guest', 
                     sentAt: this.state.timeStamp,
-                    roomId: this.state.roomId,
-                  }
+                    roomId: this.state.activeRoom.key,
+                         }
                 );
                 this.setState({
                   content: "",
@@ -60,29 +60,28 @@ export class MessageList extends Component {
                 this.setState({ message: e.target.value });
               }
 
-              
+              sendMessage(event) {
+                this.createMessage(this.messagesRef.push({
+                  message: event.target.value, 
+                })); 
+              }
+            
+              handleMessage(event) {
+                this.setState({ value: event.target.value }); 
+              }
+            
 
               render() {
-                const messageList = (this.state.messages.map((message) => {cd
-                  if (message.roomId === this.props.activeRoom.key) {
-                    console.log("messageList fired")
-                    return <div key={message.roomId}>{message.content}</div>
-                  }
-                  console.log('messageList not fired');
-                  return null;
-                  })
-                );
-            
                 return (
-                  <section className="activeMessageList">
-                    <div>Current Room: {this.props.activeRoom.name}</div>
-                   <div>
-                   <p>Message List:{messageList.content}</p>
-                   </div>
+                  <section className = "messageList">
+                    <h3>Messages</h3>
+                    <h3> {this.props.activeRoom.name}: {this.props.activeRoom.content} </h3>
+                    
+                   
                   </section>
-                );
+                )
               }
-            };
+            }
     
   
   
