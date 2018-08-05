@@ -75,8 +75,14 @@ export class MessageList extends Component {
                 return (
                   <section className = "messageList">
                     <h3>Messages</h3>
-                    <h3> {this.props.activeRoom.name}: {this.props.activeRoom.content} </h3>
+                    <h3> 
+                    <ul> 
+                      {this.props.activeRoom.name}
+                      <li>Message:{this.props.activeRoom.content}, Username:{this.props.activeRoom.username}</li>
+                    </ul>
+                    </h3>
                     
+                   
                    
                   </section>
                 )

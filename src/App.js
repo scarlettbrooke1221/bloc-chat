@@ -25,8 +25,9 @@ class App extends Component {
     this.state = {
       addItem: '',
       activeRoom: [],
-      activeUser:"Guest"
+      activeUser: "",
      };
+
      this.setActiveRoom = this.setActiveRoom.bind(this);
      this.handleChange = this.handleChange.bind(this);
      this.handleSubmit = this.handleSubmit.bind(this);
@@ -63,14 +64,20 @@ console.log ("New room activated", room);
 
 
   render() {
+    
     return (
       <div className="App">
         <header className="App-header">
         <h1 className="App-title">Bloc Chat App</h1>
         </header>
+       
+        <User firebase={firebase} setUser= {this.setUser} activeUser={this.state.activeUser}/>
+        
         <RoomList firebase = {firebase} setActiveRoom={ (room) => this.setActiveRoom(room)} />
-        <MessageList firebase={firebase} activeRoom={this.state.activeRoom} />
-        <User firebase={firebase} setUser= {this.setUser} activeUser={this.state.activeUser} />
+
+        <MessageList firebase={firebase} activeRoom={this.state.activeRoom} setUser={this.state.setUser} user={this.state.activeUser}/>
+
+        
       </div>
     );
   }

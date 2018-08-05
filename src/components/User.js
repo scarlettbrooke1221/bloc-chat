@@ -10,8 +10,7 @@ class User extends Component {
     };
     this.signIn = this.signIn.bind(this);
     this.signOut = this.signOut.bind(this);
-    this.notSignedIn = this.notSignedIn.bind(this);
-  }
+    }
       
   componentDidMount() {
     this.props.firebase.auth().onAuthStateChanged( user => {
@@ -37,10 +36,7 @@ class User extends Component {
   this.setState({ signedIn: false });
 }
 
-notSignedIn(isSignedIn) {
-  if (!this.props.user)
-  return <p> Please sign in </p>
-}
+
 
 render() {
   return (
@@ -52,6 +48,8 @@ render() {
        <p>Hi, {this.props.currentUser}. {this.props.currentUser === 'Guest' ? "Please sign in" : "You're signed in."}</p>
     </div>
  )
+}
+}
 }
 }
 export default User;
