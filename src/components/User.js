@@ -41,15 +41,13 @@ class User extends Component {
 render() {
   return (
    <div>
-   
-     {this.notSignedIn(this.signedIn)}
+   <p>Hi, {this.setUser}. </p>
+   <p>{this.props.setUser === 'Guest' ? "Please sign in" : "You're signed in."}</p>
      <button onClick={this.signIn}>Sign In</button>
      <button onClick={this.signOut}>Sign Out</button>
-       <p>Hi, {this.props.currentUser}. {this.props.currentUser === 'Guest' ? "Please sign in" : "You're signed in."}</p>
+       
     </div>
  )
-}
-}
 }
 }
 export default User;
