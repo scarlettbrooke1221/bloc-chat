@@ -25,16 +25,17 @@ class User extends Component {
       this.props.setUser(user);
       console.log("signed in");
     });
-    this.setState({ signedIn: true });
   }
 
-   signOut() {
+
+
+signOut() {
   this.props.firebase.auth().signOut().then(() => {
-    this.props.setUser(null);
+    this.props.setUser("Guest");
     console.log("signed out")
   });
-  this.setState({ signedIn: false });
 }
+  
 
 
 
@@ -44,10 +45,12 @@ render() {
    <p>Hi, {this.setUser}. </p>
    <p>{this.props.setUser === 'Guest' ? "Please sign in" : "You're signed in."}</p>
      <button onClick={this.signIn}>Sign In</button>
+     
      <button onClick={this.signOut}>Sign Out</button>
        
     </div>
  )
 }
-}
+  }
+
 export default User;
