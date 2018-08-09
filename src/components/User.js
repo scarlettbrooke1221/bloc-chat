@@ -37,14 +37,14 @@ render() {
 
   return (
    <div>
-   <p>Hi, {this.props.user ? this.props.user.displayName : guest}. </p>
-   <p>{this.props.user === guest ? "Please sign in" : "You're signed in."}</p>
+   <p>Hi, {this.props.activeUser ? this.props.activeUser.displayName : guest}.   </p> 
+   <p>{this.props.user === null ? "Please sign in" : "You're signed in."}</p>
    
      <button onClick={this.signIn}>Sign In</button>
      <button onClick={this.signOut}>Sign Out</button>
        
     </div>
- )
+ ) //returns guest as username
 }
   }
 
