@@ -19,40 +19,28 @@ class User extends Component {
   }
 
   signIn() {
-   const displayName = this.props.setUser === ( this.newMethod()) ? "Guest" : this.props.setUser.displayName;
-   const provider = new this.props.firebase.auth.GoogleAuthProvider();
-    this.props.firebase.auth().signInWithPopup(provider).then((result) => {
-      const user = result.displayName;
-      this.props.setUser(user, displayName);
-      console.log("signed in");
-    });
-  }
-
-
-
-  newMethod() {
-    return null;
-  }
-
+    const provider = new this.props.firebase.auth.GoogleAuthProvider();
+    this.props.firebase.auth().signInWithPopup( provider );
+    console.log("signed in")
+    }
+      
+ 
 signOut() {
-  this.props.firebase.auth().signOut().then(() => {
-    this.props.setUser("Guest");
+  this.props.firebase.auth().signOut();
     console.log("signed out")
-  });
-}
+  }
   
-
   
 
 render() {
-
+  const guest = 'Guest';
 
   return (
    <div>
-   <p>Hi, {this.props.setUser.displayName}. </p>
-   <p>{this.props.setUser.displayName === 'Guest' ? "Please sign in" : "You're signed in."}</p>
+   <p>Hi, {this.props.user ? this.props.user.displayName : guest}. </p>
+   <p>{this.props.user === guest ? "Please sign in" : "You're signed in."}</p>
+   
      <button onClick={this.signIn}>Sign In</button>
-     
      <button onClick={this.signOut}>Sign Out</button>
        
     </div>
