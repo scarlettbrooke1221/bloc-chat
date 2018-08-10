@@ -42,6 +42,7 @@ class RoomList extends Component {
   render() {
     return (
       <section className="roomList">
+      <h3>Rooms</h3>
         {
           this.state.rooms.map((room, index) =>
         <div onClick= { () =>

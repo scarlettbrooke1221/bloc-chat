@@ -44,7 +44,7 @@ render() {
      <button onClick={this.signOut}>Sign Out</button>
        
     </div>
- ) //returns guest as username
+ ) 
 }
   }
 

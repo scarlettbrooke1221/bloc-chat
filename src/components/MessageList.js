@@ -1,94 +1,76 @@
 import React, {Component} from 'react';
 
-export class MessageList extends Component {
+class MessageList extends Component {
   constructor(props) {
     super(props);
     this.state = {
       messages:[], 
+      message: {
       content:" ", 
       username:" ", 
-      sentAt:" ", 
-      roomId:" "
-    };
+      sentAt: this.props.firebase.database.ServerValue.TIMESTAMP,
+      roomId:" ",
+      }, 
+    newMessage: " ",
+    }
     
-    this.messageRef = this.props.firebase.database().ref('messages');
+    this.messagesRef = this.props.firebase.database().ref('messages');
     this.createMessage = this.createMessage.bind(this);
-    this.messageContent = this.messageContent.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    
   };
 
-  componentDidMount() {
-      this.messageRef.on('child_added', snapshot => {
-          const message = snapshot.val();
-          this.setState({ messages: this.state.messages.concat( message )});
-            console.log("message loaded");
-        });
-        console.log(this.props.activeRoom);
-      }
+  createMessage(e) {
+    e.preventDefault();
+    console.log(this.props.activeRoom.key + ' ....is the active room');
+    this.messagesRef.push({
+        content: this.state.newMessage,
+        roomId: this.props.activeRoom.key,
+        username: !this.props.username ? 'Guest' : this.props.username.displayName,
+        sentAt: this.props.firebase.database.ServerValue.TIMESTAMP
+    });
+    this.setState({ newMessage: ''});
+}
+
+componentDidMount() {
+  this.messagesRef.on('child_added', snapshot => {
+  const message = snapshot.val();
+  message.key = snapshot.key;
+  this.setState({ messages: this.state.messages.concat(message) })
       
-            
-              messageContent (e) {
-                e.preventDefault();
-                this.setState(
-                  {
-                  content: e.target.value,
-                  username: this.props.username,
-                  sentAt: this.props.firebase.database.ServerValue.TIMESTAMP,
-                  roomId: this.props.activeRoom.key
-                })
-              }
-            
-              createMessage(e) {
-                e.preventDefault();
-                this.messageRef.push(
-                  {
-                    content: this.state.value,
-                    username: this.props.user ? this.props.user.displayName : 'Guest', 
-                    sentAt: this.state.timeStamp,
-                    roomId: this.state.activeRoom.key,
-                         }
-                );
-                this.setState({
-                  content: "",
-                  username: "",
-                  sentAt: "",
-                  roomId: "",
-                });
-              }
+    });
+  }
 
-              handleChange = (e) => {
-                this.setState({ message: e.target.value });
-              }
+  handleChange(e) {
+   this.setState({ newMessage: e.target.value });
+}
+             
+              
 
-              sendMessage(event) {
-                this.createMessage(this.messagesRef.push({
-                  message: event.target.value, 
-                })); 
-              }
+             
             
-              handleMessage(event) {
-                this.setState({ value: event.target.value }); 
-              }
-            
-
+              
               render() {
+                console.log(this.state.messages)
                 return (
-                  <section className = "messageList">
-                    <h3>Messages</h3>
-                    <h3> 
-                    <ul> 
-                      {this.props.activeRoom.name}
-                      <li>Message:{this.props.activeRoom.content}, Username:{this.props.activeRoom.username}</li>
+                  <div className = "messageList">
+                  <h4>Enter your comment here:</h4>
+                  <ul>
+                  { this.state.messages.map( (message, index) => {
+                  if (this.props.activeRoom.key === message.roomId) {
+                   return <li key={ index }> "{message.content}"  - {message.username}  </li>
+                  }
+                  
+                      })}
                     </ul>
-                    </h3>
-                    
-                   
-                   
-                  </section>
-                )
-              }
-            }
-    
+                    <form className="new-message" onSubmit={ (e) => this.createMessage(e) }> 
+                    <input placeholder="your message" type="text" value={this.state.newMessage} onChange={ (e) => this.handleChange(e)} />
+                   <input className="roomname" type="submit" value="Send" />
+                  </form>
+                  </div>
+                      )
+                    }
+                  }
   
   
 export default MessageList;
