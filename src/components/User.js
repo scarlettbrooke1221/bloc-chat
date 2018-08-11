@@ -14,7 +14,7 @@ class User extends Component {
       
   componentDidMount() {
     this.props.firebase.auth().onAuthStateChanged( user => {
-      console.log("USER:", user);
+     
       this.props.setUser(user)
     });
   }
@@ -35,7 +35,7 @@ signOut() {
 
 render() {
   const guest = 'Guest';
-
+ console.log("active user", this.props.activeUser)
   return (
    <div>
    <p>Hi, {this.props.activeUser ? this.props.activeUser.displayName : guest}.   </p> 

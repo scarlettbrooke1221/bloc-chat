@@ -22,11 +22,10 @@ class MessageList extends Component {
 
   createMessage(e) {
     e.preventDefault();
-    console.log(this.props.activeRoom.key + ' is the active room');
-    this.messagesRef.push({
+      this.messagesRef.push({
         content: this.state.newMessage,
         roomId: this.props.activeRoom.key,
-        username: !this.props.username ? 'Guest' : this.props.username.displayName,
+        username: !this.props.user ? 'Guest' : this.props.user.displayName,
         sentAt: this.props.firebase.database.ServerValue.TIMESTAMP
     });
     this.setState({ newMessage: ''});
@@ -56,7 +55,7 @@ deleteMessage(message){
             
               
               render() {
-                console.log(this.state.messages)
+               
                 return (
                   <div className = "messageList">
                   <h4>Enter your comment here:</h4>

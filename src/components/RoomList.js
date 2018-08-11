@@ -13,7 +13,7 @@ class RoomList extends Component {
   createRoom(e) {
     e.preventDefault();
     const newRoomName = this.state.newRoomName;
-    console.log(newRoomName);
+    
     this.roomsRef.push({
       name: newRoomName 
     });
@@ -25,8 +25,7 @@ class RoomList extends Component {
   }
 
   roomChange (room) {
-    console.log("change room:", room)
-    this.props.setActiveRoom(room);
+     this.props.setActiveRoom(room);
   }
 
   deleteRoom (room){
