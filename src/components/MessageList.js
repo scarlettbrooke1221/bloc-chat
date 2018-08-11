@@ -45,7 +45,12 @@ componentDidMount() {
    this.setState({ newMessage: e.target.value });
 }
              
-              
+deleteMessage(message){
+  this.messagesRef.child(message.key).remove();
+  const index = this.state.messages.indexOf(message);
+  this.state.messages.splice(index, 1);
+  this.setState({messages: this.state.messages})
+}            
 
              
             
@@ -55,18 +60,20 @@ componentDidMount() {
                 return (
                   <div className = "messageList">
                   <h4>Enter your comment here:</h4>
+                  
                   <ul>
                   { this.state.messages.map( (message, index) => {
                   if (this.props.activeRoom.key === message.roomId) {
-                   return <li key={ index }> "{message.content}"  - {message.username}  </li>
+                   return <li key={ index }> "{message.content}"  - {message.username} <button className="deletebtn btn-danger pull-right" onClick={ () => this.deleteMessage(message)}>Delete</button> </li>
                   }
-                  
+                   
                       })}
                     </ul>
                     <form className="new-message" onSubmit={ (e) => this.createMessage(e) }> 
                     <input placeholder="your message" type="text" value={this.state.newMessage} onChange={ (e) => this.handleChange(e)} />
                    <input className="roomname" type="submit" value="Send" />
                   </form>
+                
                   </div>
                       )
                     }
