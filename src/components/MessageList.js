@@ -22,7 +22,7 @@ class MessageList extends Component {
 
   createMessage(e) {
     e.preventDefault();
-    console.log(this.props.activeRoom.key + ' ....is the active room');
+    console.log(this.props.activeRoom.key + ' is the active room');
     this.messagesRef.push({
         content: this.state.newMessage,
         roomId: this.props.activeRoom.key,
@@ -61,10 +61,10 @@ deleteMessage(message){
                   <div className = "messageList">
                   <h4>Enter your comment here:</h4>
                   
-                  <ul>
+                  <ul> 
                   { this.state.messages.map( (message, index) => {
                   if (this.props.activeRoom.key === message.roomId) {
-                   return <li key={ index }> "{message.content}"  - {message.username} <button className="deletebtn btn-danger pull-right" onClick={ () => this.deleteMessage(message)}>Delete</button> </li>
+                   return <li key={ index }> "{message.content}"  - {message.username} <button  onClick={ () => this.deleteMessage(message)}>Delete</button> </li>
                   }
                    
                       })}
@@ -73,7 +73,6 @@ deleteMessage(message){
                     <input placeholder="your message" type="text" value={this.state.newMessage} onChange={ (e) => this.handleChange(e)} />
                    <input className="roomname" type="submit" value="Send" />
                   </form>
-                
                   </div>
                       )
                     }

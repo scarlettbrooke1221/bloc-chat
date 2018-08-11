@@ -29,6 +29,12 @@ class RoomList extends Component {
     this.props.setActiveRoom(room);
   }
 
+  deleteRoom (room){
+    this.roomsRef.child(room.key).remove();
+    const index = this.state.rooms.indexOf(room);
+    this.state.rooms.splice(index, 1);
+    this.setState({rooms: this.state.rooms})
+  } 
 
   componentDidMount() {
     this.roomsRef.on('child_added', snapshot => {
@@ -47,6 +53,7 @@ class RoomList extends Component {
           this.state.rooms.map((room, index) =>
         <div onClick= { () =>
           this.roomChange(room)} key={index}>{room.name}
+          <button  onClick={ () => this.deleteRoom(room)}>Delete</button>
           </div>
           )
         }
