@@ -1,0 +1,12 @@
+@import url(https://fonts.googleapis.com/css?family=Monoton);
+
+.App-header{ 
+    font-family: 'Monoton', cursive;
+    background-image:url(https://res.cloudinary.com/scarlettbrooke1221/image/upload/v1534036683/createherstock-bday-social-bonus-neosha-gardner-022.jpg) ;
+    background-repeat: no-repeat;
+    
+    background-blend-mode: lighten;
+  }
+
+
+  

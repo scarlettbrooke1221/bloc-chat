@@ -1,6 +1,9 @@
+@import url(https://fonts.googleapis.com/css?family=Bigelow+Rules|Goblin+One|IM+Fell+French+Canon+SC|Miltonian|Monoton);
+
 .App {
   text-align: center;
-}
+  font-size: 1em;
+  }
 
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
@@ -8,10 +11,15 @@
 }
 
 .App-header {
-  background-color: red;
+  font-family: 'IM Fell French Canon SC', serif;
+  color: white;
+  text-align: center;
+  font-size: 2em;
   height: 50px;
   padding: 20px;
-  color: white;
+ background-image:url(https://res.cloudinary.com/scarlettbrooke1221/image/upload/v1534036683/createherstock-bday-social-bonus-neosha-gardner-022.jpg) ;
+  background-size: 275px, 75px;
+  background-repeat: repeat-x;
 }
 
 .App-title {
@@ -26,3 +34,9 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+p{
+  font-family: 'Goblin One', cursive;
+  font-size:  100%;
+}
+

@@ -1,0 +1,23 @@
+
+@import url(https://fonts.googleapis.com/css?family=Bigelow+Rules|Goblin+One|IM+Fell+French+Canon+SC|Miltonian|Monoton);
+
+.messageList {
+  font-family: 'Goblin One', cursive;
+  font-size: 100%;
+  background-image:url(https://res.cloudinary.com/scarlettbrooke1221/image/upload/v1534036695/c3.jpg) ;
+  background-repeat: no-repeat;
+   background-size: 575px, 250px;
+   background-blend-mode: lighten
+}
+
+.roomname{
+    font-family: 'IM Fell French Canon SC', serif;
+    font-size: 1.5em;
+     border: none;
+     padding: 5px;
+     text-align: center;
+     text-decoration: none;
+     display: inline-block;
+     margin: 4px 2px;
+     border-radius: 50%;
+  }
